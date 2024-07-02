@@ -2,25 +2,51 @@
   <div class="container">
     <div class="card">
       <div class="card-body">
-        <h1 class="mb-5">Reactive-forms</h1>
-        <div class="row">
-          <div class="col">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="First name"
-              aria-label="First name"
-            />
+        <h1 class="mb-5">Template driven-forms</h1>
+        <form #myRegisterForm="ngForm">
+          <div class="row">
+            <div class="col">
+              <input
+                #firstNameControl="ngModel"
+                name="firstName"
+                [(ngModel)]="registerForm.firstName"
+                [ngClass]="{
+                  'is-invalid':
+                    firstNameControl.invalid && firstNameControl.touched,
+                  'is-valid': firstNameControl.valid && firstNameControl.touched
+                }"
+                required
+                type="text"
+                class="form-control"
+                placeholder="First name"
+                aria-label="First name"
+              />
+
+              <small
+                *ngIf="
+                  firstNameControl.hasError('required') &&
+                  firstNameControl.touched
+                "
+                class="text-danger"
+              >
+                Este campo es requerido
+              </small>
+            </div>
+            <div class="col">
+              <input
+                name="lastName"
+                [(ngModel)]="registerForm.lastName"
+                required
+                type="text"
+                class="form-control"
+                placeholder="Last name"
+                aria-label="Last name"
+              />
+            </div>
           </div>
-          <div class="col">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Last name"
-              aria-label="Last name"
-            />
-          </div>
-        </div>
+        </form>
+        <hr />
+        <pre>{{ registerForm | json }}</pre>
       </div>
     </div>
   </div>

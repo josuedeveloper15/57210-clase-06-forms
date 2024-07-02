@@ -11,38 +11,33 @@
                 type="text"
                 class="form-control"
                 [ngClass]="{
-                  'is-invalid':
-                    registerForm.get('firstName')?.invalid &&
-                    registerForm.get('firstName')?.touched,
-                  'is-valid':
-                    registerForm.get('firstName')?.valid &&
-                    registerForm.get('firstName')?.touched && registerForm.get('firstName')?.dirty,
+                  'is-invalid': firstNameControlInvalid && firstNameControl?.touched,
+                  'is-valid': !firstNameControlInvalid && firstNameControl?.touched,
                 }"
                 placeholder="First name"
                 aria-label="First name"
               />
-              @if (registerForm.get("firstName")?.hasError('required') &&
-              registerForm.get('firstName')?.touched) {
+              @if (firstNameControl?.hasError('required') &&
+              firstNameControl?.touched) {
               <small class="text-danger"> Este campo es requerido </small>
-              } @if (registerForm.get("firstName")?.hasError('minlength') &&
-              registerForm.get('firstName')?.touched) {
+              } @if (firstNameControl?.hasError('minlength') &&
+              firstNameControl?.touched) {
               <small class="text-danger">
                 Este campo requiere de al menos 3 caracteres
               </small>
+              } @if (firstNameControl?.hasError('noHomero') &&
+              firstNameControl?.touched) {
+              <small class="text-danger"> No se admiten homeros </small>
               }
-
-              <!-- <pre>{{ registerForm.get("firstName")?.errors | json }}</pre> -->
             </div>
             <div class="col">
               <input
                 [ngClass]="{
-                'is-invalid':
-                  registerForm.get('lastName')?.invalid &&
-                  registerForm.get('lastName')?.touched,
-                'is-valid':
-                  registerForm.get('lastName')?.valid &&
-                  registerForm.get('lastName')?.touched,
-              }"
+                  'is-invalid':
+                    lastNameControlInvalid && lastNameControl?.touched,
+                  'is-valid':
+                    !lastNameControlInvalid && lastNameControl?.touched
+                }"
                 formControlName="lastName"
                 type="text"
                 class="form-control"
